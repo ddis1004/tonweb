@@ -44,13 +44,13 @@ class JettonWallet extends Contract {
     }
 
     /**
-     * @param params    {{queryId?: number, jettonAmount: BN, responseAddress: Address}}
+     * @param params    {{queryId?: number, tokenAmount: BN, responseAddress: Address}}
      */
     async createBurnBody(params) {
         const cell = new Cell();
         cell.bits.writeUint(0x595f07bc, 32); // burn op
         cell.bits.writeUint(params.queryId || 0, 64);
-        cell.bits.writeCoins(params.jettonAmount);
+        cell.bits.writeCoins(params.tokenAmount);
         cell.bits.writeAddress(params.responseAddress);
         return cell;
     }
