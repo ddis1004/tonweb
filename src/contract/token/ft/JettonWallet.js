@@ -17,13 +17,13 @@ class JettonWallet extends Contract {
     }
 
     /**
-     * @param params    {{queryId?: number, jettonAmount: BN, toAddress: Address, responseAddress: Address, forwardAmount?: BN, forwardPayload?: Uint8Array | Cell}}
+     * @param params    {{queryId?: number, tokenAmount: BN, toAddress: Address, responseAddress: Address, forwardAmount?: BN, forwardPayload?: Uint8Array | Cell}}
      */
     async createTransferBody(params) {
         const cell = new Cell();
         cell.bits.writeUint(0xf8a7ea5, 32); // request_transfer op
         cell.bits.writeUint(params.queryId || 0, 64);
-        cell.bits.writeCoins(params.jettonAmount);
+        cell.bits.writeCoins(params.tokenAmount);
         cell.bits.writeAddress(params.toAddress);
         cell.bits.writeAddress(params.responseAddress);
         cell.bits.writeBit(false); // null custom_payload
